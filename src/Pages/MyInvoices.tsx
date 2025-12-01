@@ -9,12 +9,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { format } from "date-fns";
-import { 
-  CreditCard, 
-  Activity, 
+import {
+  CreditCard,
+  Activity,
   ArrowLeft,
   Calendar,
-  Download,
   Eye,
   Receipt,
   CheckCircle,
@@ -131,7 +130,7 @@ export default function MyInvoices() {
               <CreditCard className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-gray-900 mb-2">No Invoices</h3>
               <p className="text-gray-500">
-                {filter === 'all' 
+                {filter === 'all'
                   ? "You don't have any invoices yet."
                   : `No ${filter} invoices found.`
                 }
@@ -153,14 +152,12 @@ export default function MyInvoices() {
                     <CardContent className="p-6">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex gap-4">
-                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                            invoice.status === 'Paid' ? 'bg-green-100' : 
-                            invoice.status === 'Overdue' ? 'bg-red-100' : 'bg-yellow-100'
-                          }`}>
-                            <StatusIcon className={`w-6 h-6 ${
-                              invoice.status === 'Paid' ? 'text-green-600' : 
-                              invoice.status === 'Overdue' ? 'text-red-600' : 'text-yellow-600'
-                            }`} />
+                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${invoice.status === 'Paid' ? 'bg-green-100' :
+                              invoice.status === 'Overdue' ? 'bg-red-100' : 'bg-yellow-100'
+                            }`}>
+                            <StatusIcon className={`w-6 h-6 ${invoice.status === 'Paid' ? 'text-green-600' :
+                                invoice.status === 'Overdue' ? 'text-red-600' : 'text-yellow-600'
+                              }`} />
                           </div>
                           <div>
                             <h3 className="font-semibold text-gray-900">
@@ -192,8 +189,8 @@ export default function MyInvoices() {
 
                           <Dialog>
                             <DialogTrigger asChild>
-                              <Button 
-                                variant="outline" 
+                              <Button
+                                variant="outline"
                                 size="icon"
                                 onClick={() => setSelectedInvoice(invoice)}
                               >

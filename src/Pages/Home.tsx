@@ -7,15 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  Calendar, 
-  Clock, 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Heart, 
-  Shield, 
-  Users, 
+import {
+  Calendar,
+  Clock,
+  Phone,
+  Mail,
+  MapPin,
+  Heart,
   Star,
   Stethoscope,
   Brain,
@@ -118,7 +116,7 @@ export default function Home() {
                       Book Now
                     </Button>
                   </Link>
-                  <Button 
+                  <Button
                     onClick={() => base44.auth.redirectToLogin(createPageUrl('Dashboard'))}
                     className="bg-teal-600 hover:bg-teal-700"
                   >
@@ -129,7 +127,7 @@ export default function Home() {
             </div>
 
             {/* Mobile menu button */}
-            <button 
+            <button
               className="md:hidden p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
@@ -140,7 +138,7 @@ export default function Home() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="md:hidden bg-white border-t border-gray-100 p-4"
@@ -160,7 +158,7 @@ export default function Home() {
                   <Link to={createPageUrl('BookAppointment')}>
                     <Button variant="outline" className="w-full border-teal-600 text-teal-600">Book Now</Button>
                   </Link>
-                  <Button 
+                  <Button
                     onClick={() => base44.auth.redirectToLogin(createPageUrl('Dashboard'))}
                     className="w-full bg-teal-600 hover:bg-teal-700"
                   >
@@ -177,7 +175,7 @@ export default function Home() {
       <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-4 bg-gradient-to-br from-teal-50 via-white to-emerald-50">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -190,7 +188,7 @@ export default function Home() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600"> Priority</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-                Experience world-class surgical care at MediCare Private Surgery. 
+                Experience world-class surgical care at MediCare Private Surgery.
                 Our expert team and state-of-the-art facilities ensure the best outcomes for you and your family.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -223,23 +221,23 @@ export default function Home() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-                <img 
+                <img
                   src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&auto=format&fit=crop&q=80"
                   alt="Medical professionals"
                   className="w-full h-[400px] md:h-[500px] object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-teal-900/30 to-transparent" />
               </div>
-              
+
               {/* Floating card */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
@@ -280,7 +278,7 @@ export default function Home() {
       {/* Services Section */}
       <section id="services" className="py-16 md:py-24 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -337,7 +335,7 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <img 
+              <img
                 src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&auto=format&fit=crop&q=80"
                 alt="Modern hospital facility"
                 className="rounded-3xl shadow-xl"
@@ -354,7 +352,7 @@ export default function Home() {
                 Leading Private Healthcare in South Africa
               </h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                For over 15 years, MediCare Private Surgery has been at the forefront of private healthcare in South Africa. 
+                For over 15 years, MediCare Private Surgery has been at the forefront of private healthcare in South Africa.
                 Our state-of-the-art facility combines cutting-edge technology with compassionate care.
               </p>
               <div className="space-y-4 mb-8">
@@ -385,7 +383,7 @@ export default function Home() {
       {/* Testimonials */}
       <section id="testimonials" className="py-16 md:py-24 px-4 bg-gradient-to-br from-teal-50 to-emerald-50">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -447,7 +445,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Address</div>
-                    <div className="text-gray-600">123 Medical Drive, Sandton<br/>Johannesburg, 2196</div>
+                    <div className="text-gray-600">123 Medical Drive, Sandton<br />Johannesburg, 2196</div>
                   </div>
                 </div>
 
@@ -492,7 +490,7 @@ export default function Home() {
               <Card className="border-0 shadow-xl">
                 <CardContent className="p-6 md:p-8">
                   <h3 className="text-xl font-semibold text-gray-900 mb-6">Send us a Message</h3>
-                  
+
                   {submitted ? (
                     <div className="text-center py-8">
                       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -504,39 +502,39 @@ export default function Home() {
                   ) : (
                     <form onSubmit={handleContactSubmit} className="space-y-4">
                       <div>
-                        <Input 
+                        <Input
                           placeholder="Your Name"
                           value={contactForm.name}
-                          onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
+                          onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
                           required
                           className="h-12"
                         />
                       </div>
                       <div className="grid sm:grid-cols-2 gap-4">
-                        <Input 
+                        <Input
                           type="email"
                           placeholder="Email Address"
                           value={contactForm.email}
-                          onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
+                          onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
                           required
                           className="h-12"
                         />
-                        <Input 
+                        <Input
                           placeholder="Phone Number"
                           value={contactForm.phone}
-                          onChange={(e) => setContactForm({...contactForm, phone: e.target.value})}
+                          onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
                           className="h-12"
                         />
                       </div>
-                      <Textarea 
+                      <Textarea
                         placeholder="How can we help you?"
                         value={contactForm.message}
-                        onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
+                        onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                         required
                         className="min-h-[120px]"
                       />
-                      <Button 
-                        type="submit" 
+                      <Button
+                        type="submit"
                         className="w-full bg-teal-600 hover:bg-teal-700 h-12"
                         disabled={submitting}
                       >

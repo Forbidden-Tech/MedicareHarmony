@@ -4,7 +4,7 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -12,15 +12,12 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { format } from "date-fns";
-import { 
-  Calendar as CalendarIcon, 
-  Clock, 
-  Activity, 
-  ArrowLeft, 
+import {
+  Calendar as CalendarIcon,
+  Activity,
+  ArrowLeft,
   CheckCircle,
   User,
-  Phone,
-  Mail,
   Stethoscope
 } from 'lucide-react';
 
@@ -30,7 +27,7 @@ export default function BookAppointment() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [user, setUser] = useState(null);
-  
+
   const [formData, setFormData] = useState({
     patient_name: '',
     patient_email: '',
@@ -68,8 +65,8 @@ export default function BookAppointment() {
   };
 
   const timeSlots = [
-    '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', 
-    '11:00', '11:30', '12:00', '14:00', '14:30', '15:00', 
+    '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
+    '11:00', '11:30', '12:00', '14:00', '14:30', '15:00',
     '15:30', '16:00', '16:30', '17:00'
   ];
 
@@ -78,7 +75,7 @@ export default function BookAppointment() {
   ];
 
   const departments = [
-    'General Surgery', 'Orthopaedics', 'Cardiology', 'Neurology', 
+    'General Surgery', 'Orthopaedics', 'Cardiology', 'Neurology',
     'Paediatrics', 'Gynaecology', 'Dermatology', 'ENT', 'Ophthalmology'
   ];
 
@@ -100,7 +97,7 @@ export default function BookAppointment() {
   if (submitted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 flex items-center justify-center p-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="text-center"
@@ -173,7 +170,7 @@ export default function BookAppointment() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
@@ -187,10 +184,9 @@ export default function BookAppointment() {
           <div className="flex items-center gap-4">
             {[1, 2, 3].map((s) => (
               <React.Fragment key={s}>
-                <div 
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all ${
-                    step >= s ? 'bg-teal-600 text-white' : 'bg-gray-200 text-gray-500'
-                  }`}
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all ${step >= s ? 'bg-teal-600 text-white' : 'bg-gray-200 text-gray-500'
+                    }`}
                 >
                   {s}
                 </div>
@@ -224,19 +220,19 @@ export default function BookAppointment() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Full Name *</Label>
-                    <Input 
+                    <Input
                       placeholder="e.g. Thabo Mokoena"
                       value={formData.patient_name}
-                      onChange={(e) => setFormData({...formData, patient_name: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, patient_name: e.target.value })}
                       className="h-12"
                     />
                   </div>
                   <div className="space-y-2">
                     <Label>Phone Number *</Label>
-                    <Input 
+                    <Input
                       placeholder="e.g. 082 123 4567"
                       value={formData.patient_phone}
-                      onChange={(e) => setFormData({...formData, patient_phone: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, patient_phone: e.target.value })}
                       className="h-12"
                     />
                   </div>
@@ -244,17 +240,17 @@ export default function BookAppointment() {
 
                 <div className="space-y-2">
                   <Label>Email Address *</Label>
-                  <Input 
+                  <Input
                     type="email"
                     placeholder="e.g. thabo@email.com"
                     value={formData.patient_email}
-                    onChange={(e) => setFormData({...formData, patient_email: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, patient_email: e.target.value })}
                     className="h-12"
                   />
                 </div>
 
                 <div className="flex justify-end pt-4">
-                  <Button 
+                  <Button
                     onClick={() => setStep(2)}
                     className="bg-teal-600 hover:bg-teal-700"
                     disabled={!formData.patient_name || !formData.patient_phone || !formData.patient_email}
@@ -285,9 +281,9 @@ export default function BookAppointment() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Appointment Type *</Label>
-                    <Select 
-                      value={formData.appointment_type} 
-                      onValueChange={(v) => setFormData({...formData, appointment_type: v})}
+                    <Select
+                      value={formData.appointment_type}
+                      onValueChange={(v) => setFormData({ ...formData, appointment_type: v })}
                     >
                       <SelectTrigger className="h-12">
                         <SelectValue placeholder="Select type" />
@@ -302,9 +298,9 @@ export default function BookAppointment() {
 
                   <div className="space-y-2">
                     <Label>Department *</Label>
-                    <Select 
-                      value={formData.department} 
-                      onValueChange={(v) => setFormData({...formData, department: v, doctor_name: ''})}
+                    <Select
+                      value={formData.department}
+                      onValueChange={(v) => setFormData({ ...formData, department: v, doctor_name: '' })}
                     >
                       <SelectTrigger className="h-12">
                         <SelectValue placeholder="Select department" />
@@ -321,9 +317,9 @@ export default function BookAppointment() {
                 {filteredDoctors.length > 0 && (
                   <div className="space-y-2">
                     <Label>Preferred Doctor (Optional)</Label>
-                    <Select 
-                      value={formData.doctor_name} 
-                      onValueChange={(v) => setFormData({...formData, doctor_name: v})}
+                    <Select
+                      value={formData.doctor_name}
+                      onValueChange={(v) => setFormData({ ...formData, doctor_name: v })}
                     >
                       <SelectTrigger className="h-12">
                         <SelectValue placeholder="Any available doctor" />
@@ -342,10 +338,10 @@ export default function BookAppointment() {
 
                 <div className="space-y-2">
                   <Label>Reason for Visit</Label>
-                  <Textarea 
+                  <Textarea
                     placeholder="Briefly describe your symptoms or reason for the appointment"
                     value={formData.reason}
-                    onChange={(e) => setFormData({...formData, reason: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
                     className="min-h-[100px]"
                   />
                 </div>
@@ -354,7 +350,7 @@ export default function BookAppointment() {
                   <Button variant="outline" onClick={() => setStep(1)}>
                     Back
                   </Button>
-                  <Button 
+                  <Button
                     onClick={() => setStep(3)}
                     className="bg-teal-600 hover:bg-teal-700"
                     disabled={!formData.appointment_type || !formData.department}
@@ -396,7 +392,7 @@ export default function BookAppointment() {
                         <Calendar
                           mode="single"
                           selected={formData.date}
-                          onSelect={(date) => setFormData({...formData, date})}
+                          onSelect={(date) => setFormData({ ...formData, date })}
                           disabled={(date) => date < new Date() || date.getDay() === 0}
                         />
                       </PopoverContent>
@@ -405,9 +401,9 @@ export default function BookAppointment() {
 
                   <div className="space-y-2">
                     <Label>Preferred Time *</Label>
-                    <Select 
-                      value={formData.time} 
-                      onValueChange={(v) => setFormData({...formData, time: v})}
+                    <Select
+                      value={formData.time}
+                      onValueChange={(v) => setFormData({ ...formData, time: v })}
                     >
                       <SelectTrigger className="h-12">
                         <SelectValue placeholder="Select time" />
@@ -423,10 +419,10 @@ export default function BookAppointment() {
 
                 <div className="space-y-2">
                   <Label>Additional Notes (Optional)</Label>
-                  <Textarea 
+                  <Textarea
                     placeholder="Any additional information we should know?"
                     value={formData.notes}
-                    onChange={(e) => setFormData({...formData, notes: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   />
                 </div>
 
@@ -469,7 +465,7 @@ export default function BookAppointment() {
                   <Button variant="outline" onClick={() => setStep(2)}>
                     Back
                   </Button>
-                  <Button 
+                  <Button
                     onClick={handleSubmit}
                     className="bg-teal-600 hover:bg-teal-700"
                     disabled={!formData.date || !formData.time || loading}

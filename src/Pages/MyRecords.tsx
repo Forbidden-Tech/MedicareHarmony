@@ -4,13 +4,12 @@ import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
-import { 
-  FileText, 
-  Activity, 
+import {
+  FileText,
+  Activity,
   ArrowLeft,
   User,
   Calendar,
@@ -115,7 +114,7 @@ export default function MyRecords() {
                 >
                   <Collapsible open={openRecords[record.id]}>
                     <Card className="border-0 shadow-md">
-                      <CollapsibleTrigger 
+                      <CollapsibleTrigger
                         className="w-full"
                         onClick={() => toggleRecord(record.id)}
                       >

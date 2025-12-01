@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
@@ -7,9 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import ReactMarkdown from 'react-markdown';
-import { 
-  MessageCircle, 
-  Activity, 
+import {
   ArrowLeft,
   Send,
   Loader2,
@@ -116,17 +114,16 @@ export default function HealthChat() {
                     <Bot className="w-5 h-5 text-white" />
                   </div>
                 )}
-                <div 
-                  className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                    message.role === 'user' 
-                      ? 'bg-teal-600 text-white' 
+                <div
+                  className={`max-w-[80%] rounded-2xl px-4 py-3 ${message.role === 'user'
+                      ? 'bg-teal-600 text-white'
                       : 'bg-white border shadow-sm'
-                  }`}
+                    }`}
                 >
                   {message.role === 'user' ? (
                     <p className="text-sm">{message.content}</p>
                   ) : (
-                    <ReactMarkdown 
+                    <ReactMarkdown
                       className="text-sm prose prose-sm max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
                       components={{
                         p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
@@ -195,7 +192,7 @@ export default function HealthChat() {
         {/* Input */}
         <Card className="border-0 shadow-lg">
           <CardContent className="p-4">
-            <form 
+            <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSend();
@@ -209,7 +206,7 @@ export default function HealthChat() {
                 className="flex-1 h-12 border-gray-200"
                 disabled={isLoading}
               />
-              <Button 
+              <Button
                 type="submit"
                 className="bg-teal-600 hover:bg-teal-700 h-12 w-12"
                 disabled={!input.trim() || isLoading}
