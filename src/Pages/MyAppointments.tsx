@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
@@ -9,15 +9,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { format } from "date-fns";
-import { 
-  Calendar, 
-  Clock, 
-  Activity, 
+import {
+  Calendar,
+  Clock,
+  Activity,
   ArrowLeft,
   Plus,
   User,
   Stethoscope,
-  MapPin,
   XCircle
 } from 'lucide-react';
 import {
@@ -199,7 +198,7 @@ export default function MyAppointments() {
                               </AlertDialogHeader>
                               <AlertDialogFooter>
                                 <AlertDialogCancel>Keep Appointment</AlertDialogCancel>
-                                <AlertDialogAction 
+                                <AlertDialogAction
                                   onClick={() => cancelMutation.mutate(apt.id)}
                                   className="bg-red-600 hover:bg-red-700"
                                 >

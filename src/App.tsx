@@ -7,7 +7,7 @@ import MyAppointments from './Pages/MyAppointments';
 import MyRecords from './Pages/MyRecords';
 import MyInvoices from './Pages/MyInvoices';
 import HealthChat from './Pages/HealthChat';
-import './App.css';
+import './index.css';
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { base44 } from '@/api/base44Client';
@@ -8,11 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
-import { 
-  Calendar, 
-  Clock, 
-  FileText, 
-  CreditCard, 
+import {
+  Calendar,
+  FileText,
+  CreditCard,
   MessageCircle,
   Activity,
   ChevronRight,
@@ -94,7 +93,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-4">
-              <button 
+              <button
                 className="lg:hidden p-2"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
@@ -125,8 +124,8 @@ export default function Dashboard() {
                   {user?.full_name || 'Patient'}
                 </span>
               </div>
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
                 onClick={() => base44.auth.logout(createPageUrl('Home'))}
               >
@@ -142,14 +141,13 @@ export default function Dashboard() {
         <aside className="hidden lg:block w-64 bg-white border-r min-h-[calc(100vh-4rem)] p-4">
           <nav className="space-y-1">
             {navItems.map((item) => (
-              <Link 
+              <Link
                 key={item.page}
                 to={createPageUrl(item.page)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
-                  item.page === 'Dashboard' 
-                    ? 'bg-teal-50 text-teal-700 font-medium' 
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${item.page === 'Dashboard'
+                  ? 'bg-teal-50 text-teal-700 font-medium'
+                  : 'text-gray-600 hover:bg-gray-50'
+                  }`}
               >
                 <item.icon className="w-5 h-5" />
                 <span>{item.label}</span>
@@ -171,27 +169,26 @@ export default function Dashboard() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             className="lg:hidden fixed inset-0 z-40 bg-black/50"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <div 
+            <div
               className="w-64 bg-white h-full p-4"
               onClick={(e) => e.stopPropagation()}
             >
               <nav className="space-y-1 mt-4">
                 {navItems.map((item) => (
-                  <Link 
+                  <Link
                     key={item.page}
                     to={createPageUrl(item.page)}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
-                      item.page === 'Dashboard' 
-                        ? 'bg-teal-50 text-teal-700 font-medium' 
-                        : 'text-gray-600 hover:bg-gray-50'
-                    }`}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${item.page === 'Dashboard'
+                      ? 'bg-teal-50 text-teal-700 font-medium'
+                      : 'text-gray-600 hover:bg-gray-50'
+                      }`}
                   >
                     <item.icon className="w-5 h-5" />
                     <span>{item.label}</span>
@@ -206,7 +203,7 @@ export default function Dashboard() {
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <div className="max-w-5xl mx-auto">
             {/* Welcome */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="mb-8"
@@ -290,8 +287,8 @@ export default function Dashboard() {
                     </div>
                   ) : (
                     upcomingAppointments.map((apt) => (
-                      <div 
-                        key={apt.id} 
+                      <div
+                        key={apt.id}
                         className="flex items-center gap-4 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
                       >
                         <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center">
@@ -336,8 +333,8 @@ export default function Dashboard() {
                     </div>
                   ) : (
                     invoices.slice(0, 3).map((inv) => (
-                      <div 
-                        key={inv.id} 
+                      <div
+                        key={inv.id}
                         className="flex items-center gap-4 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
                       >
                         <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
