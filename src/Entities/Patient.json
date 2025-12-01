@@ -1,0 +1,82 @@
+{
+    "name": "Patient",
+    "type": "object",
+    "properties": {
+      "full_name": {
+        "type": "string",
+        "description": "Patient's full name"
+      },
+      "id_number": {
+        "type": "string",
+        "description": "South African ID number"
+      },
+      "date_of_birth": {
+        "type": "string",
+        "format": "date"
+      },
+      "gender": {
+        "type": "string",
+        "enum": [
+          "Male",
+          "Female",
+          "Other"
+        ]
+      },
+      "phone": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      },
+      "medical_aid_provider": {
+        "type": "string",
+        "enum": [
+          "None",
+          "Discovery Health",
+          "Bonitas",
+          "Momentum Health",
+          "Fedhealth",
+          "Medihelp",
+          "GEMS",
+          "Bestmed",
+          "Other"
+        ]
+      },
+      "medical_aid_number": {
+        "type": "string"
+      },
+      "blood_type": {
+        "type": "string",
+        "enum": [
+          "A+",
+          "A-",
+          "B+",
+          "B-",
+          "AB+",
+          "AB-",
+          "O+",
+          "O-",
+          "Unknown"
+        ]
+      },
+      "allergies": {
+        "type": "string"
+      },
+      "chronic_conditions": {
+        "type": "string"
+      },
+      "emergency_contact_name": {
+        "type": "string"
+      },
+      "emergency_contact_phone": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "full_name",
+      "phone"
+    ]
+  }

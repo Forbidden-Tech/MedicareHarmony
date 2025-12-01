@@ -1,0 +1,63 @@
+{
+    "name": "Doctor",
+    "type": "object",
+    "properties": {
+      "full_name": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string",
+        "enum": [
+          "Dr",
+          "Prof",
+          "Mr",
+          "Ms"
+        ]
+      },
+      "specialisation": {
+        "type": "string",
+        "enum": [
+          "General Surgery",
+          "Orthopaedics",
+          "Cardiology",
+          "Neurology",
+          "Paediatrics",
+          "Gynaecology",
+          "Dermatology",
+          "ENT",
+          "Ophthalmology",
+          "General Practitioner"
+        ]
+      },
+      "hpcsa_number": {
+        "type": "string",
+        "description": "HPCSA Registration Number"
+      },
+      "phone": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      },
+      "bio": {
+        "type": "string"
+      },
+      "available_days": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "consultation_fee": {
+        "type": "number",
+        "description": "Fee in ZAR"
+      },
+      "photo_url": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "full_name",
+      "specialisation"
+    ]
+  }

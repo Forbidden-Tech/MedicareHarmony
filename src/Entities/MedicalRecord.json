@@ -1,0 +1,70 @@
+{
+    "name": "MedicalRecord",
+    "type": "object",
+    "properties": {
+      "patient_id": {
+        "type": "string"
+      },
+      "patient_email": {
+        "type": "string"
+      },
+      "record_date": {
+        "type": "string",
+        "format": "date"
+      },
+      "record_type": {
+        "type": "string",
+        "enum": [
+          "Consultation",
+          "Lab Results",
+          "Prescription",
+          "Surgery Report",
+          "Imaging",
+          "Discharge Summary"
+        ]
+      },
+      "doctor_name": {
+        "type": "string"
+      },
+      "diagnosis": {
+        "type": "string"
+      },
+      "treatment": {
+        "type": "string"
+      },
+      "prescription": {
+        "type": "string"
+      },
+      "vitals": {
+        "type": "object",
+        "properties": {
+          "blood_pressure": {
+            "type": "string"
+          },
+          "heart_rate": {
+            "type": "number"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "weight": {
+            "type": "number"
+          }
+        }
+      },
+      "notes": {
+        "type": "string"
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "patient_email",
+      "record_date",
+      "record_type"
+    ]
+  }

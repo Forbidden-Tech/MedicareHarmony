@@ -1,0 +1,77 @@
+{
+  "name": "Appointment",
+  "type": "object",
+  "properties": {
+    "patient_id": {
+      "type": "string",
+      "description": "Reference to Patient"
+    },
+    "patient_name": {
+      "type": "string"
+    },
+    "patient_email": {
+      "type": "string"
+    },
+    "patient_phone": {
+      "type": "string"
+    },
+    "appointment_type": {
+      "type": "string",
+      "enum": [
+        "Consultation",
+        "Surgery",
+        "Follow-up",
+        "Emergency",
+        "Check-up",
+        "Specialist Referral"
+      ]
+    },
+    "department": {
+      "type": "string",
+      "enum": [
+        "General Surgery",
+        "Orthopaedics",
+        "Cardiology",
+        "Neurology",
+        "Paediatrics",
+        "Gynaecology",
+        "Dermatology",
+        "ENT",
+        "Ophthalmology"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "time": {
+      "type": "string"
+    },
+    "doctor_name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Confirmed",
+        "Completed",
+        "Cancelled",
+        "No-Show"
+      ],
+      "default": "Pending"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "patient_name",
+    "appointment_type",
+    "date",
+    "time"
+  ]
+}
