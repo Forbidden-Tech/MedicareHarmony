@@ -598,7 +598,6 @@ export default function Home() {
 
           <div className="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
             <p>© 2024 MediCare Private Surgery. All rights reserved.</p>
-            <p className="p-10 bg-red-500 text-white" >hello</p>
           </div>
         </div>
       </footer>
