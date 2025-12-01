@@ -1,9 +1,15 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
-import { base44 } from '@/api/base44Client';
-import { motion } from 'framer-motion';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { base44 } from "@/api/base44Client";
+import { motion } from "framer-motion";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  type UseMutationResult,
+} from "@tanstack/react-query";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,8 +23,8 @@ import {
   Plus,
   User,
   Stethoscope,
-  XCircle
-} from 'lucide-react';
+  XCircle,
+} from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -31,46 +37,94 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+// ---------- Types -----------------------------------------------------------
+
+type AppointmentStatus =
+  | "Pending"
+  | "Confirmed"
+  | "Completed"
+  | "Cancelled"
+  | "No-Show";
+
+interface Appointment {
+  id: string;
+  appointment_type: string;
+  department?: string;
+  doctor_name?: string;
+  reason?: string;
+  date: string | Date;
+  time?: string;
+  status: AppointmentStatus;
+}
+
+type FilterValue = "upcoming" | "past" | "cancelled";
+
+// ---------- Helpers ---------------------------------------------------------
+
+const statusColors: Record<AppointmentStatus, string> = {
+  Pending: "bg-yellow-100 text-yellow-700 border-yellow-200",
+  Confirmed: "bg-green-100 text-green-700 border-green-200",
+  Completed: "bg-blue-100 text-blue-700 border-blue-200",
+  Cancelled: "bg-red-100 text-red-700 border-red-200",
+  "No-Show": "bg-gray-100 text-gray-700 border-gray-200",
+};
+
+const getStatusClasses = (status: AppointmentStatus | string) => {
+  if (status in statusColors) {
+    return statusColors[status as AppointmentStatus];
+  }
+  // Fallback if backend sends an unexpected status
+  return "bg-gray-100 text-gray-700 border-gray-200";
+};
+
+// ---------- Component -------------------------------------------------------
+
 export default function MyAppointments() {
-  const [filter, setFilter] = useState('upcoming');
+  const [filter, setFilter] = useState<FilterValue>("upcoming");
   const queryClient = useQueryClient();
 
-  const { data: appointments = [], isLoading } = useQuery({
-    queryKey: ['my-appointments'],
+  const { data: appointments = [], isLoading } = useQuery<Appointment[]>({
+    queryKey: ["my-appointments"],
     queryFn: async () => {
       const user = await base44.auth.me();
-      return base44.entities.Appointment.filter({ patient_email: user.email }, '-date');
-    }
+      return base44.entities.Appointment.filter(
+        { patient_email: user.email },
+        "-date"
+      );
+    },
   });
 
-  const cancelMutation = useMutation({
-    mutationFn: (id) => base44.entities.Appointment.update(id, { status: 'Cancelled' }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['my-appointments'] })
+  const cancelMutation: UseMutationResult<
+    unknown,
+    unknown,
+    string,
+    unknown
+  > = useMutation({
+    mutationFn: (id: string) =>
+      base44.entities.Appointment.update(id, { status: "Cancelled" }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-appointments"] });
+    },
   });
 
   const now = new Date();
-  const filteredAppointments = appointments.filter(apt => {
+  const filteredAppointments = appointments.filter((apt) => {
     const aptDate = new Date(apt.date);
-    if (filter === 'upcoming') return aptDate >= now && apt.status !== 'Cancelled';
-    if (filter === 'past') return aptDate < now || apt.status === 'Completed';
-    if (filter === 'cancelled') return apt.status === 'Cancelled';
+    if (filter === "upcoming") return aptDate >= now && apt.status !== "Cancelled";
+    if (filter === "past") return aptDate < now || apt.status === "Completed";
+    if (filter === "cancelled") return apt.status === "Cancelled";
     return true;
   });
-
-  const statusColors = {
-    Pending: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-    Confirmed: 'bg-green-100 text-green-700 border-green-200',
-    Completed: 'bg-blue-100 text-blue-700 border-blue-200',
-    Cancelled: 'bg-red-100 text-red-700 border-red-200',
-    'No-Show': 'bg-gray-100 text-gray-700 border-gray-200'
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b sticky top-0 z-10">
+      <div className="sticky top-0 z-10 bg-white border-b">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to={createPageUrl('Dashboard')} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+          <Link
+            to={createPageUrl("Dashboard")}
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+          >
             <ArrowLeft className="w-5 h-5" />
             <span>Back</span>
           </Link>
@@ -86,10 +140,12 @@ export default function MyAppointments() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">My Appointments</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+              My Appointments
+            </h1>
             <p className="text-gray-500">View and manage your appointments</p>
           </div>
-          <Link to={createPageUrl('BookAppointment')}>
+          <Link to={createPageUrl("BookAppointment")}>
             <Button className="bg-teal-600 hover:bg-teal-700">
               <Plus className="w-4 h-4 mr-2" />
               Book New
@@ -97,7 +153,11 @@ export default function MyAppointments() {
           </Link>
         </div>
 
-        <Tabs value={filter} onValueChange={setFilter} className="mb-6">
+        <Tabs
+          value={filter}
+          onValueChange={(val) => setFilter(val as FilterValue)}
+          className="mb-6"
+        >
           <TabsList className="bg-white border">
             <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
             <TabsTrigger value="past">Past</TabsTrigger>
@@ -107,10 +167,10 @@ export default function MyAppointments() {
 
         {isLoading ? (
           <div className="space-y-4">
-            {[1, 2, 3].map(i => (
+            {[1, 2, 3].map((i) => (
               <div key={i} className="bg-white rounded-xl p-6 animate-pulse">
-                <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
-                <div className="h-4 bg-gray-100 rounded w-1/2"></div>
+                <div className="h-6 bg-gray-200 rounded w-1/3 mb-4" />
+                <div className="h-4 bg-gray-100 rounded w-1/2" />
               </div>
             ))}
           </div>
@@ -122,13 +182,17 @@ export default function MyAppointments() {
                 No {filter} appointments
               </h3>
               <p className="text-gray-500 mb-4">
-                {filter === 'upcoming' && "You don't have any upcoming appointments scheduled."}
-                {filter === 'past' && "You don't have any past appointments."}
-                {filter === 'cancelled' && "You don't have any cancelled appointments."}
+                {filter === "upcoming" &&
+                  "You don't have any upcoming appointments scheduled."}
+                {filter === "past" && "You don't have any past appointments."}
+                {filter === "cancelled" &&
+                  "You don't have any cancelled appointments."}
               </p>
-              {filter === 'upcoming' && (
-                <Link to={createPageUrl('BookAppointment')}>
-                  <Button className="bg-teal-600 hover:bg-teal-700">Book an Appointment</Button>
+              {filter === "upcoming" && (
+                <Link to={createPageUrl("BookAppointment")}>
+                  <Button className="bg-teal-600 hover:bg-teal-700">
+                    Book an Appointment
+                  </Button>
                 </Link>
               )}
             </CardContent>
@@ -137,7 +201,7 @@ export default function MyAppointments() {
           <div className="space-y-4">
             {filteredAppointments.map((apt, idx) => (
               <motion.div
-                key={apt.id}
+                key={apt.id ?? idx}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05 }}
@@ -150,7 +214,9 @@ export default function MyAppointments() {
                           <Calendar className="w-7 h-7 text-teal-600" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-gray-900 text-lg">{apt.appointment_type}</h3>
+                          <h3 className="font-semibold text-gray-900 text-lg">
+                            {apt.appointment_type}
+                          </h3>
                           <div className="flex items-center gap-2 text-gray-500 mt-1">
                             <Stethoscope className="w-4 h-4" />
                             <span>{apt.department}</span>
@@ -162,18 +228,22 @@ export default function MyAppointments() {
                             </div>
                           )}
                           {apt.reason && (
-                            <p className="text-gray-600 mt-2 text-sm">{apt.reason}</p>
+                            <p className="text-gray-600 mt-2 text-sm">
+                              {apt.reason}
+                            </p>
                           )}
                         </div>
                       </div>
 
                       <div className="flex flex-col items-end gap-2">
-                        <Badge className={`${statusColors[apt.status]} border`}>
+                        <Badge
+                          className={`${getStatusClasses(apt.status)} border`}
+                        >
                           {apt.status}
                         </Badge>
                         <div className="text-right">
                           <div className="font-semibold text-gray-900">
-                            {format(new Date(apt.date), 'EEEE, dd MMM yyyy')}
+                            {format(new Date(apt.date), "EEEE, dd MMM yyyy")}
                           </div>
                           <div className="flex items-center justify-end gap-1 text-gray-500">
                             <Clock className="w-4 h-4" />
@@ -181,33 +251,45 @@ export default function MyAppointments() {
                           </div>
                         </div>
 
-                        {apt.status === 'Pending' || apt.status === 'Confirmed' ? (
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700 hover:bg-red-50">
-                                <XCircle className="w-4 h-4 mr-1" />
-                                Cancel
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Cancel Appointment?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Are you sure you want to cancel this appointment? This action cannot be undone.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Keep Appointment</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() => cancelMutation.mutate(apt.id)}
-                                  className="bg-red-600 hover:bg-red-700"
+                        {(apt.status === "Pending" ||
+                          apt.status === "Confirmed") && (
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
                                 >
-                                  Yes, Cancel
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        ) : null}
+                                  <XCircle className="w-4 h-4 mr-1" />
+                                  Cancel
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    Cancel Appointment?
+                                  </AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Are you sure you want to cancel this
+                                    appointment? This action cannot be undone.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>
+                                    Keep Appointment
+                                  </AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() =>
+                                      cancelMutation.mutate(apt.id)
+                                    }
+                                    className="bg-red-600 hover:bg-red-700"
+                                  >
+                                    Yes, Cancel
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          )}
                       </div>
                     </div>
                   </CardContent>
@@ -220,3 +302,4 @@ export default function MyAppointments() {
     </div>
   );
 }
+
